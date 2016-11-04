@@ -22,13 +22,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Retrofit retrofit = new Retrofit.Builder()   //利用內建的建立Bulider
-                .baseUrl("https://api.github.com/")  //呼叫對應網址
+                .baseUrl("https://192.168.58.22:8081/11-0/11-14_project/api/")  //呼叫對應網址
                 .addConverterFactory(GsonConverterFactory.create()) //把json轉換 ,再放入
                 .build(); //呼叫API
 
         GitHubService service = retrofit.create(GitHubService.class);//產生可以實作的介面   做好後放入service
 
-        Call<List<Repo>> repos = service.listRepos("octocat");  //若要用listRepos  先產生Call,以便後面可以呼叫
+        Call<List<Repo>> repos = service.listRepos();  //若要用listRepos  先產生Call,以便後面可以呼叫
         //<此為泛型> 因為用到很多所以用Call<泛型A>,泛型A之中還有<泛型B>,彈性便很大             //當repos呼叫網路
         //非同步呼叫
         repos.enqueue(new Callback<List<Repo>>() {
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Iterator it = result.iterator();//疊代器
                 while(it.hasNext()) {  //用來檢查疊代器 有沒有東西
-                    System.out.println(((Repo) it.next()).name); //利用cast,在類別裡面可以用cast轉化型別
+                    System.out.println(((Repo) it.next()).cID); //利用cast,在類別裡面可以用cast轉化型別
                 }
             }
 
@@ -54,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
 }
 interface GitHubService {
 //建立介面
-    @GET("users/{user}/repos")  //GET 跟http協定有關
-    Call<List<Repo>> listRepos(@Path("user") String user);  //listRepos 當成JAVA的方法來使用,user要同上一行user 因為代表參數
+    @GET("read_data.php")  //GET 跟http協定有關
+    Call<List<Repo>> listRepos();  //listRepos 當成JAVA的方法來使用,user要同上一行user 因為代表參數
     //建立Repo的list
 }
 
 class  Repo{
-    int id ;
+    int id,cID ;
     String name,full_name;
 
 
