@@ -3,6 +3,7 @@ package com.stud008.useretrofit2;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.Iterator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,17 +29,24 @@ public class MainActivity extends AppCompatActivity {
         GitHubService service = retrofit.create(GitHubService.class);//產生可以實作的介面   做好後放入service
 
         Call<List<Repo>> repos = service.listRepos("octocat");  //若要用listRepos  先產生Call,以便後面可以呼叫
-                        //當repos呼叫網路
+        //<此為泛型> 因為用到很多所以用Call<泛型A>,泛型A之中還有<泛型B>,彈性便很大             //當repos呼叫網路
         //非同步呼叫
         repos.enqueue(new Callback<List<Repo>>() {
             @Override       //呼叫網路後傳回來
             public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
                 List<Repo> result = response.body();
+//                System.out.println(result.get(0).name); //列出第0個
+//                System.out.println(result.get(1).name);
+
+                Iterator it = result.iterator();//疊代器
+                while(it.hasNext()) {  //用來檢查疊代器 有沒有東西
+                    System.out.println(((Repo) it.next()).name); //利用cast,在類別裡面可以用cast轉化型別
+                }
             }
 
             @Override
             public void onFailure(Call<List<Repo>> call, Throwable t) {
-            //這邊是失敗處
+            //這邊是失敗時呼叫
                 t.printStackTrace(); //列出錯誤
             }
         }); //enqueue 序列,排列,會在背景執行,程式不會被網路拖住
