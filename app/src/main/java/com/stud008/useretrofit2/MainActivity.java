@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Retrofit retrofit = new Retrofit.Builder()   //利用內建的建立Bulider
-                .baseUrl("https://192.168.58.22:8081/11-0/11-14_project/api/")  //呼叫對應網址
+                .baseUrl("http://192.168.58.22:8081/11-0/11-14_project/api/")  //呼叫對應網址
                 .addConverterFactory(GsonConverterFactory.create()) //把json轉換 ,再放入
                 .build(); //呼叫API
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Iterator it = result.iterator();//疊代器
                 while(it.hasNext()) {  //用來檢查疊代器 有沒有東西
-                    System.out.println(((Repo) it.next()).cID); //利用cast,在類別裡面可以用cast轉化型別
+                    System.out.println(((Repo) it.next()).cSex); //利用cast,在類別裡面可以用cast轉化型別
                 }
             }
 
@@ -61,7 +61,7 @@ interface GitHubService {
 
 class  Repo{
     int id,cID ;
-    String name,full_name;
+    String name,full_name,cSex;
 
 
 }
