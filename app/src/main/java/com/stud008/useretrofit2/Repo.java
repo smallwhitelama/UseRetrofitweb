@@ -6,5 +6,5 @@ package com.stud008.useretrofit2;
 
 public class Repo {
     int id,cID ;
-    String cName,full_name,cSex;
+    String cName,full_name,cSex,name;
 }

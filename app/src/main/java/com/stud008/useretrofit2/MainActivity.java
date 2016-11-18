@@ -2,6 +2,8 @@ package com.stud008.useretrofit2;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +20,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+//        String[] data = {"test1","test2","test3"};
+        int layoutID = android.R.layout.simple_list_item_1;//adroid內建簡單的layout!!!!!!!!!!!
+        final  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,layoutID);
+
+        ListView item_list = (ListView) findViewById(R.id.item_list);
+        item_list.setAdapter(adapter);
+
+
 
         Retrofit retrofit = new Retrofit.Builder()   //利用內建的建立Bulider
                 .baseUrl("http://192.168.58.22:8081/")  //呼叫對應網址
@@ -37,9 +49,14 @@ public class MainActivity extends AppCompatActivity {
 //                System.out.println(result.get(1).name);
 
                 Iterator it = result.iterator();//疊代器
-                while(it.hasNext()) {  //用來檢查疊代器 有沒有東西
-                    System.out.println(((Repo) it.next()).cName); //利用cast,在類別裡面可以用cast轉化型別
-                }
+//                while(it.hasNext()) {  //用來檢查疊代器 有沒有東西
+//                    System.out.println(((Repo) it.next()).cName); //利用cast,在類別裡面可以用cast轉化型別
+//            }
+            while (it.hasNext()){
+//                adapter.add(((Repo)it.next()).cName);
+            
+            }
+
             }
 
             @Override
