@@ -43,7 +43,7 @@
             android:layout_alignParentStart="true"
 
             android:id="@+id/name"
-            android:textSize="36sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:text="TextView"
@@ -53,7 +53,7 @@
             android:layout_alignRight="@+id/textViewAddr"
             android:layout_alignEnd="@+id/textViewAddr"
             android:id="@+id/textViewName"
-            android:textSize="36sp"/>
+            android:textSize="20sp"/>
     </TableRow>
 
     <TableRow
@@ -67,7 +67,7 @@
             android:layout_below="@+id/name"
             android:layout_alignRight="@+id/name"
             android:layout_alignEnd="@+id/name"
-            android:textSize="36sp"
+            android:textSize="20sp"
             android:id="@+id/sex" />
 
         <TextView
@@ -78,7 +78,7 @@
             android:layout_alignRight="@+id/textViewBirthday"
             android:layout_alignEnd="@+id/textViewBirthday"
             android:id="@+id/textViewSex"
-            android:textSize="36sp"/>
+            android:textSize="20sp"/>
 
     </TableRow>
 
@@ -93,7 +93,7 @@
             android:layout_below="@+id/sex"
             android:layout_alignLeft="@+id/sex"
             android:layout_alignStart="@+id/sex"
-            android:textSize="36sp"
+            android:textSize="20sp"
             android:id="@+id/birthday" />
 
         <TextView
@@ -104,7 +104,7 @@
             android:layout_alignRight="@+id/textViewPhone"
             android:layout_alignEnd="@+id/textViewPhone"
             android:id="@+id/textViewBirthday"
-            android:textSize="36sp"/>
+            android:textSize="20sp"/>
 
     </TableRow>
 
@@ -120,7 +120,7 @@
             android:layout_alignLeft="@+id/birthday"
             android:layout_alignStart="@+id/birthday"
             android:id="@+id/email"
-            android:textSize="36sp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:text="TextView"
@@ -130,7 +130,7 @@
             android:layout_alignRight="@+id/textViewSex"
             android:layout_alignEnd="@+id/textViewSex"
             android:id="@+id/textViewEmail"
-            android:textSize="36sp"/>
+            android:textSize="20sp"/>
 
     </TableRow>
 
@@ -145,7 +145,7 @@
             android:layout_below="@+id/email"
             android:layout_alignLeft="@+id/email"
             android:layout_alignStart="@+id/email"
-            android:textSize="36sp"
+            android:textSize="20sp"
             android:id="@+id/phone" />
 
         <TextView
@@ -156,7 +156,7 @@
             android:layout_alignRight="@+id/textViewName"
             android:layout_alignEnd="@+id/textViewName"
             android:id="@+id/textViewPhone"
-            android:textSize="36sp"/>
+            android:textSize="20sp"/>
     </TableRow>
 
     <TableRow android:layout_height="match_parent"
@@ -169,14 +169,14 @@
             android:layout_below="@+id/phone"
             android:layout_alignLeft="@+id/phone"
             android:layout_alignStart="@+id/phone"
-            android:textSize="36sp"
+            android:textSize="20sp"
             android:id="@+id/addr" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="36sp"
+            android:textSize="20sp"
             android:id="@+id/textViewAddr"
             android:layout_alignBaseline="@+id/name"
             android:layout_alignBottom="@+id/name"

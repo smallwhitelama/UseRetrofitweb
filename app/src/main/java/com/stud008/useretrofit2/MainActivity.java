@@ -38,10 +38,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) { //position代表你點擊的是哪一個
 //                Toast.makeText(MainActivity.this,"你點擊的是第"+position,Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MainActivity.this,DeleteActivity.class);//拿來丟東西,可以連結葉面
-                intent.putExtra("cName",adapter.getItem(position));  //前面是key後面是value
-//                startActivity(intent);//因為有兩個按鈕
-                startActivityForResult(intent,0);
+                Intent intent = new Intent(MainActivity.this,DeleteActivity.class);//拿來丟東西,可以連結頁面
+//                intent.putExtra("cName",adapter.getItem(position));  //前面是key後面是value
+                intent.putExtra("postion",position);
+//                startActivity(intent);
+                startActivityForResult(intent,0);//因為有兩個按鈕
 
             }
         };
@@ -60,11 +61,13 @@ public class MainActivity extends AppCompatActivity {
         repos.enqueue(new Callback<List<Repo>>() {
             @Override       //呼叫網路後傳回來
             public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
-                List<Repo> result = response.body();
+                Myapp myapp = (Myapp)getApplicationContext(); //會把Myapp class抓近來
+                myapp.result =response.body();
+
 //                System.out.println(result.get(0).name); //列出第0個
 //                System.out.println(result.get(1).name);
 
-                Iterator it = result.iterator();//疊代器
+                Iterator it = myapp.result.iterator();//疊代器   因為改用myapp的變數,所以前面要改
 //                while(it.hasNext()) {  //用來檢查疊代器 有沒有東西
 //                    System.out.println(((Repo) it.next()).cName); //利用cast,在類別裡面可以用cast轉化型別
 //            }
