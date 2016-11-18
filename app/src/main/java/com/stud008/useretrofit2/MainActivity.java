@@ -2,8 +2,11 @@ package com.stud008.useretrofit2;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.List;
@@ -25,11 +28,17 @@ public class MainActivity extends AppCompatActivity {
 //        String[] data = {"test1","test2","test3"};
         int layoutID = android.R.layout.simple_list_item_1;//adroid內建簡單的layout!!!!!!!!!!!
         final  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,layoutID);
-
         ListView item_list = (ListView) findViewById(R.id.item_list);
         item_list.setAdapter(adapter);
 
-
+        //當item被點擊時
+        AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) { //position代表你點擊的是哪一個
+                Toast.makeText(MainActivity.this,"你點擊的是第"+position,Toast.LENGTH_LONG).show();
+            }
+        };
+        item_list.setOnItemClickListener(onItemClickListener);
 
         Retrofit retrofit = new Retrofit.Builder()   //利用內建的建立Bulider
                 .baseUrl("http://192.168.58.22:8081/")  //呼叫對應網址
@@ -53,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
 //                    System.out.println(((Repo) it.next()).cName); //利用cast,在類別裡面可以用cast轉化型別
 //            }
             while (it.hasNext()){
-//                adapter.add(((Repo)it.next()).cName);
-            
+                adapter.add(((Repo)it.next()).cName);
+
             }
 
             }
