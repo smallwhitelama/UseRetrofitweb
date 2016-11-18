@@ -1,7 +1,7 @@
 package com.stud008.useretrofit2;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.Iterator;
 import java.util.List;
@@ -11,8 +11,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Retrofit retrofit = new Retrofit.Builder()   //利用內建的建立Bulider
-                .baseUrl("http://192.168.58.22:8081/11-0/11-14_project/api/")  //呼叫對應網址
+                .baseUrl("http://192.168.58.22:8081/")  //呼叫對應網址
                 .addConverterFactory(GsonConverterFactory.create()) //把json轉換 ,再放入
                 .build(); //呼叫API
 
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Iterator it = result.iterator();//疊代器
                 while(it.hasNext()) {  //用來檢查疊代器 有沒有東西
-                    System.out.println(((Repo) it.next()).cSex); //利用cast,在類別裡面可以用cast轉化型別
+                    System.out.println(((Repo) it.next()).cName); //利用cast,在類別裡面可以用cast轉化型別
                 }
             }
 
@@ -52,16 +50,14 @@ public class MainActivity extends AppCompatActivity {
         }); //enqueue 序列,排列,會在背景執行,程式不會被網路拖住
     }
 }
-interface GitHubService {
-//建立介面
-    @GET("read_data.php")  //GET 跟http協定有關
-    Call<List<Repo>> listRepos();  //listRepos 當成JAVA的方法來使用,user要同上一行user 因為代表參數
-    //建立Repo的list
-}
+//interface GitHubService {
+////建立介面
+//    @GET("11-0/11-14_project/api/read_data.php")  //GET 跟http協定有關
+//    Call<List<Repo>> listRepos();  //listRepos 當成JAVA的方法來使用,user要同上一行user 因為代表參數
+//    //建立Repo的list
+//}
 
-class  Repo{
-    int id,cID ;
-    String name,full_name,cSex;
-
-
-}
+//class  Repo{
+//    int id,cID ;
+//    String cName,full_name,cSex;
+//}
