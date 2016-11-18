@@ -1,12 +1,13 @@
 package com.stud008.useretrofit2;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,12 @@ public class MainActivity extends AppCompatActivity {
         AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) { //position代表你點擊的是哪一個
-                Toast.makeText(MainActivity.this,"你點擊的是第"+position,Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this,"你點擊的是第"+position,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this,DeleteActivity.class);//拿來丟東西,可以連結葉面
+                intent.putExtra("cName",adapter.getItem(position));  //前面是key後面是value
+//                startActivity(intent);//因為有兩個按鈕
+                startActivityForResult(intent,0);
+
             }
         };
         item_list.setOnItemClickListener(onItemClickListener);
@@ -74,6 +81,23 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace(); //列出錯誤
             }
         }); //enqueue 序列,排列,會在背景執行,程式不會被網路拖住
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        System.out.println("onActivityResult");
+
+        if(resultCode == Activity.RESULT_CANCELED){
+            System.out.println("Cancel");
+        }
+
+        if(resultCode == Activity.RESULT_OK){
+            System.out.println("Delete");
+        }
+
     }
 }
 //interface GitHubService {
