@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_delete"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.stud008.useretrofit2.DeleteActivity">
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:text="欄位"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView18"
+            android:textSize="45sp"/>
+
+        <TextView
+            android:text="資料"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView17"
+            android:textSize="45sp"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:text="姓名"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            android:id="@+id/name"
+            android:textSize="36sp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/birthday"
+            android:layout_alignRight="@+id/textView8"
+            android:layout_alignEnd="@+id/textView8"
+            android:id="@+id/cName"
+            android:textSize="36sp"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:text="性別"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_alignRight="@+id/name"
+            android:layout_alignEnd="@+id/name"
+            android:textSize="36sp"
+            android:id="@+id/sex" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/addr"
+            android:layout_alignRight="@+id/textView11"
+            android:layout_alignEnd="@+id/textView11"
+            android:id="@+id/textView12"
+            android:textSize="36sp"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:text="生日"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sex"
+            android:layout_alignLeft="@+id/sex"
+            android:layout_alignStart="@+id/sex"
+            android:textSize="36sp"
+            android:id="@+id/birthday" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/email"
+            android:layout_alignRight="@+id/textView10"
+            android:layout_alignEnd="@+id/textView10"
+            android:id="@+id/textView11"
+            android:textSize="36sp"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:text="電子郵件"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/birthday"
+            android:layout_alignStart="@+id/birthday"
+            android:id="@+id/email"
+            android:textSize="36sp"/>
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttonDelete"
+            android:layout_alignRight="@+id/textView12"
+            android:layout_alignEnd="@+id/textView12"
+            android:id="@+id/textView13"
+            android:textSize="36sp"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:text="電話"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/email"
+            android:layout_alignLeft="@+id/email"
+            android:layout_alignStart="@+id/email"
+            android:textSize="36sp"
+            android:id="@+id/phone" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/birthday"
+            android:layout_alignRight="@+id/cName"
+            android:layout_alignEnd="@+id/cName"
+            android:id="@+id/textView10"
+            android:textSize="36sp"/>
+    </TableRow>
+
+    <TableRow android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:text="地址"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phone"
+            android:layout_alignLeft="@+id/phone"
+            android:layout_alignStart="@+id/phone"
+            android:textSize="36sp"
+            android:id="@+id/addr" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="36sp"
+            android:id="@+id/textView8"
+            android:layout_alignBaseline="@+id/name"
+            android:layout_alignBottom="@+id/name"
+            android:layout_toRightOf="@+id/email"
+            android:layout_toEndOf="@+id/email" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:text="刪除這筆資料"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/buttonDelete"
+            android:layout_below="@+id/addr"
+            android:layout_alignLeft="@+id/addr"
+            android:layout_alignStart="@+id/addr" />
+
+        <Button
+            android:text="取消"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonCancel"
+            android:layout_alignBaseline="@+id/buttonDelete"
+            android:layout_alignBottom="@+id/buttonDelete"
+            android:layout_alignRight="@+id/textView13"
+            android:layout_alignEnd="@+id/textView13" />
+    </TableRow>
+</TableLayout>
