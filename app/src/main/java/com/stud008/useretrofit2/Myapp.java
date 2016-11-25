@@ -17,6 +17,7 @@ public class Myapp extends Application {
     GitHubService service;
     Call<List<Repo>> repos;
     Call<ResponseBody> delete;
+    Call<ResponseBody> add;
 
     //這邊可以寫get result &putresult 會比較漂亮
 }

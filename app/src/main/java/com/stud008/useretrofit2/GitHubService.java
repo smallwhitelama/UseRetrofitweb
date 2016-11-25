@@ -18,4 +18,6 @@ public interface GitHubService {
     //建立Repo的list   因為是用GSON格式所以要用 LIST<<Rrpo>>
     @GET("api/api_delete_get.php")
     Call<ResponseBody> delete(@Query("cID") String cID) ;//Response 代表不做處理直接傳,@Query會帶加?所以會傳[?cID]
+    @GET("api/api_add_get.php")
+    Call<ResponseBody> add(@Query("cName") String cName);
 }

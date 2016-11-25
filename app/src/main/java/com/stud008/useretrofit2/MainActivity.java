@@ -127,8 +127,44 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        if(requestCode == 1 && resultCode==Activity.RESULT_OK){
+            Myapp myApp = (Myapp)getApplicationContext();
+            Repo repo=new Repo();
+            repo.cName="mike";
+            repo.cAddr="Earth";
+            repo.cBirthday="1999/08/07";
+            repo.cEmail="asve@gmail.com";
+            repo.cPhone="09032165106";
+            repo.cSex="male";
+//            myApp.add=myApp.service.add(repo);
+            myApp.add.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    System.out.println("Add OK!");
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    System.out.println("Add fail......");
+                }
+            });
+
+        }
 
     }
+
+
+
+
+
+
+    public void add(View view){
+        Intent intent = new Intent(MainActivity.this,DeleteActivity.class);//拿來丟東西,可以連結頁面
+
+        startActivityForResult(intent,1);//因為有兩個按鈕
+    }
+
+
 }
 //interface GitHubService {
 ////建立介面
