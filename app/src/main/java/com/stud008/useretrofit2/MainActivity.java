@@ -12,6 +12,7 @@ import android.widget.ListView;
 import java.util.Iterator;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,7 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        String[] data = {"test1","test2","test3"};
         int layoutID = android.R.layout.simple_list_item_1;//adroid內建簡單的layout!!!!!!!!!!!
-        final  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,layoutID);
+        adapter  = new ArrayAdapter<String>(this,layoutID);
         ListView item_list = (ListView) findViewById(R.id.item_list);
         item_list.setAdapter(adapter);
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this,"你點擊的是第"+position,Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(MainActivity.this,DeleteActivity.class);//拿來丟東西,可以連結頁面
 //                intent.putExtra("cName",adapter.getItem(position));  //前面是key後面是value
-                intent.putExtra("postion",position);
+                intent.putExtra("position",position);
 //                startActivity(intent);
                 startActivityForResult(intent,0);//因為有兩個按鈕
 
@@ -49,14 +50,16 @@ public class MainActivity extends AppCompatActivity {
         item_list.setOnItemClickListener(onItemClickListener);
 
         Retrofit retrofit = new Retrofit.Builder()   //利用內建的建立Bulider
-                .baseUrl("http://192.168.58.22:8081/")  //呼叫對應網址
+                .baseUrl("http://192.168.58.22:8081/11-0/11-14_project/")  //呼叫對應網址
                 .addConverterFactory(GsonConverterFactory.create()) //把json轉換 ,再放入
                 .build(); //呼叫API
 
-        GitHubService service = retrofit.create(GitHubService.class);//產生可以實作的介面   做好後放入service
-
-        Call<List<Repo>> repos = service.listRepos();  //若要用listRepos  先產生Call,以便後面可以呼叫
+        Myapp myapp =(Myapp) getApplicationContext();//獲得Myapp class中的資料 可以讓大家使用
+        myapp.service = retrofit.create(GitHubService.class);//產生可以實作的介面   做好後放入service
+        //改使用myapp service變數的值
+        Call<List<Repo>> repos = myapp.service.listRepos();  //若要用listRepos  先產生Call,以便後面可以呼叫
         //<此為泛型> 因為用到很多所以用Call<泛型A>,泛型A之中還有<泛型B>,彈性便很大             //當repos呼叫網路
+        myapp.repos=myapp.service.listRepos();
         //非同步呼叫
         repos.enqueue(new Callback<List<Repo>>() {
             @Override       //呼叫網路後傳回來
@@ -99,6 +102,30 @@ public class MainActivity extends AppCompatActivity {
 
         if(resultCode == Activity.RESULT_OK){
             System.out.println("Delete");
+
+//            Intent intent = getIntent();  因為已經有回傳了 data
+            final int position =(int) data.getExtras().getSerializable("position");
+
+
+            Myapp myapp =(Myapp) getApplicationContext();
+
+            myapp.delete = myapp.service.delete(String.valueOf(myapp.result.get(position).cID));
+            myapp.delete.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                  System.out.println("delete OK");
+
+//                    Myapp myapp =(Myapp) getApplicationContext();
+//                    myapp.result.remove(position);//因為這邊用到postion 所以上面會變final,這行目前沒效了
+                    adapter.remove(adapter.getItem(position));   //讓他同步,告訴adapter去移除postion那個
+                    adapter.notifyDataSetChanged();//跑去更新!
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    System.out.println("delete fail......");
+                }
+            });
         }
 
     }
