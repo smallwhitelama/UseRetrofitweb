@@ -18,6 +18,6 @@ public class Myapp extends Application {
     Call<List<Repo>> repos;
     Call<ResponseBody> delete;
     Call<ResponseBody> add;
-
+    Call<ResponseBody> addByFormPost;
     //這邊可以寫get result &putresult 會比較漂亮
 }

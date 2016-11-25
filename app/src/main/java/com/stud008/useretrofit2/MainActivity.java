@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         Call<List<Repo>> repos = myapp.service.listRepos();  //若要用listRepos  先產生Call,以便後面可以呼叫
         //<此為泛型> 因為用到很多所以用Call<泛型A>,泛型A之中還有<泛型B>,彈性便很大             //當repos呼叫網路
         myapp.repos=myapp.service.listRepos();
+
+
+
         //非同步呼叫
         repos.enqueue(new Callback<List<Repo>>() {
             @Override       //呼叫網路後傳回來
@@ -96,9 +99,12 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("onActivityResult");
 
+        if(requestCode==0){
         if(resultCode == Activity.RESULT_CANCELED){
             System.out.println("Cancel");
         }
+
+
 
         if(resultCode == Activity.RESULT_OK){
             System.out.println("Delete");
@@ -117,8 +123,10 @@ public class MainActivity extends AppCompatActivity {
 
 //                    Myapp myapp =(Myapp) getApplicationContext();
 //                    myapp.result.remove(position);//因為這邊用到postion 所以上面會變final,這行目前沒效了
-                    adapter.remove(adapter.getItem(position));   //讓他同步,告訴adapter去移除postion那個
-                    adapter.notifyDataSetChanged();//跑去更新!
+
+                    updateListView();//因為這邊更新了,所以下面可以拿掉
+//                    adapter.remove(adapter.getItem(position));   //讓他同步,告訴adapter去移除postion那個
+//                    adapter.notifyDataSetChanged();//跑去更新!
                 }
 
                 @Override
@@ -127,29 +135,46 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        if(requestCode == 1 && resultCode==Activity.RESULT_OK){
-            Myapp myApp = (Myapp)getApplicationContext();
-            Repo repo=new Repo();
-            repo.cName="mike";
-            repo.cAddr="Earth";
-            repo.cBirthday="1999/08/07";
-            repo.cEmail="asve@gmail.com";
-            repo.cPhone="09032165106";
-            repo.cSex="male";
+
+        if(requestCode == 1 && resultCode==Activity.RESULT_OK) {
+            Myapp myApp = (Myapp) getApplicationContext();
+            Repo repo = new Repo();
+            repo.cName = "mike";
+            repo.cAddr = "Earth";
+            repo.cBirthday = "1999/08/07";
+            repo.cEmail = "asve@gmail.com";
+            repo.cPhone = "09032165106";
+            repo.cSex = "male";
 //            myApp.add=myApp.service.add(repo);
-            myApp.add.enqueue(new Callback<ResponseBody>() {
+//            myApp.add.enqueue(new Callback<ResponseBody>() { //Json Type
+//                @Override
+//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                    System.out.println("Add OK!");
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                    System.out.println("Add fail......");
+//                }
+//            });
+            myApp.addByFormPost = myApp.service.addByFormPost(repo.cName, repo.cSex, repo.cBirthday, repo.cEmail, repo.cPhone, repo.cAddr);
+            myApp.addByFormPost.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    System.out.println("Add OK!");
+                    System.out.println("Add by form post OK!");
+                    updateListView();
+//
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    System.out.println("Add fail......");
+                    System.out.println("Add  by form post fail......");
                 }
             });
 
         }
+        }
+
 
     }
 
@@ -159,9 +184,32 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void add(View view){
-        Intent intent = new Intent(MainActivity.this,DeleteActivity.class);//拿來丟東西,可以連結頁面
+        Intent intent = new Intent(MainActivity.this,AddActivity.class);//拿來丟東西,可以連結頁面
 
         startActivityForResult(intent,1);//因為有兩個按鈕
+    }
+
+    public void updateListView(){
+     Myapp myapp = (Myapp)getApplicationContext();
+        Call<List<Repo>> reposClone =myapp.repos.clone(); //複製 ,clone 是關鍵
+        reposClone.enqueue(new Callback<List<Repo>>() {
+            @Override
+            public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
+                Myapp myapp = (Myapp)getApplicationContext();
+                myapp.result=response.body();
+
+                Iterator it =myapp.result.iterator();
+                adapter.clear();
+                while (it.hasNext()){
+                    adapter.add(((Repo)it.next()).cName);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Repo>> call, Throwable t) {
+
+            }
+        });
     }
 
 

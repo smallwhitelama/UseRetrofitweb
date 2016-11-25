@@ -4,7 +4,10 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -20,4 +23,14 @@ public interface GitHubService {
     Call<ResponseBody> delete(@Query("cID") String cID) ;//Response 代表不做處理直接傳,@Query會帶加?所以會傳[?cID]
     @GET("api/api_add_get.php")
     Call<ResponseBody> add(@Query("cName") String cName);
+
+    //下面用表單的方式
+    @FormUrlEncoded
+    @POST("api/api_add_post.php")
+    Call<ResponseBody> addByFormPost(@Field("cName") String cName,
+                                     @Field("cSex") String cSex,
+                                     @Field("cBrithday") String cBrithday,
+                                     @Field("cEmail") String cEmail,
+                                     @Field("cPhone") String cPhone,
+                                     @Field("cAddr") String cAddr);
 }
