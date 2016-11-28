@@ -135,15 +135,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
+        }
         if(requestCode == 1 && resultCode==Activity.RESULT_OK) {
             Myapp myApp = (Myapp) getApplicationContext();
             Repo repo = new Repo();
-            repo.cName = "mike";
+            repo.cName = "one";
             repo.cAddr = "Earth";
-            repo.cBirthday = "1999/08/07";
-            repo.cEmail = "asve@gmail.com";
-            repo.cPhone = "09032165106";
+            repo.cBirthday = "1987/08/07";
+            repo.cEmail = "asveabd@gmail.com";
+            repo.cPhone = "09122165106";
             repo.cSex = "male";
 //            myApp.add=myApp.service.add(repo);
 //            myApp.add.enqueue(new Callback<ResponseBody>() { //Json Type
@@ -158,10 +158,13 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            });
             myApp.addByFormPost = myApp.service.addByFormPost(repo.cName, repo.cSex, repo.cBirthday, repo.cEmail, repo.cPhone, repo.cAddr);
+            System.out.println("HERE  "+myApp.addByFormPost);
             myApp.addByFormPost.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     System.out.println("Add by form post OK!");
+                    System.out.println("one  "+call);
+                    System.out.println("two  "+response);
                     updateListView();
 //
                 }
@@ -173,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
-        }
+
 
 
     }

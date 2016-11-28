@@ -29,7 +29,7 @@ public interface GitHubService {
     @POST("api/api_add_post.php")
     Call<ResponseBody> addByFormPost(@Field("cName") String cName,
                                      @Field("cSex") String cSex,
-                                     @Field("cBrithday") String cBrithday,
+                                     @Field("cBirthday") String cBirthday,
                                      @Field("cEmail") String cEmail,
                                      @Field("cPhone") String cPhone,
                                      @Field("cAddr") String cAddr);
